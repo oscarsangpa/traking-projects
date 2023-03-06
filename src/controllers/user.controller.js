@@ -1,5 +1,6 @@
 import User from '../models/User.model.js';
 import { idGenerator } from '../helpers/idGenerator.js';
+import JWTGenerator from '../helpers/JWTGenerator.js';
 
 const register = async (req, res) => {
     // avoid duplicate register
@@ -33,15 +34,16 @@ const authenticate = async (req, res) => {
     }
 
     if (!user.confirmed) {
-        const error = new Error('Account not comfirmed. Check your email');
+        const error = new Error('Account not confirmed. Check your email');
         return res.status(404).json({ msg: error.message });
     }
 
     if (await user.checkPassword(password)) {
         res.json({
-            _id: user.id,
+            _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: JWTGenerator(user._id)
         })
     } else {
         const error = new Error('Incorrect credentials');
