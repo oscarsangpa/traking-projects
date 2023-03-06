@@ -20,8 +20,6 @@ const register = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
-    res.json({ msg: 'creando usuario' });
 };
 
 const authenticate = async (req, res) => {
@@ -51,4 +49,23 @@ const authenticate = async (req, res) => {
     }
 };
 
-export { register, authenticate };
+const confirmed = async (req, res) => {
+    const { token } = req.params
+    const userConfirm = await User.findOne({ token })
+    console.log(userConfirm)
+    if (!userConfirm) {
+        const error = new Error('Not valid token');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    try {
+        userConfirm.confirmed = true
+        userConfirm.token = ''
+        await userConfirm.save()
+        res.json({ msg: "User confirmed correctly" })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { register, authenticate, confirmed };
