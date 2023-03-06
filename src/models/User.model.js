@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 
-const SALT_ROUNDS = 10
+const SALT_ROUNDS = 10;
 
 const userSchema = mongoose.Schema(
   {
@@ -36,14 +36,17 @@ const userSchema = mongoose.Schema(
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    next()
+    next();
   }
 
-  const salt = await bcrypt.genSalt(SALT_ROUNDS)
-  this.password = await bcrypt.hash(this.password, salt)
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
+userSchema.methods.checkPassword = async function (formPassword) {
+  return await bcrypt.compare(formPassword, this.password)
 
-})
+}
 
 const User = mongoose.model('User', userSchema);
 export default User;
