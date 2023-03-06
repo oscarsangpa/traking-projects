@@ -98,7 +98,6 @@ const checkToken = async (req, res) => {
         return res.status(404).json({ msg: error.message });
     }
 
-
 }
 
 const sendNewPassword = async (req, res) => {
@@ -122,5 +121,10 @@ const sendNewPassword = async (req, res) => {
     }
 }
 
+const profile = async (req, res) => {
+    const { user } = req
+    res.json(user)
+}
 
-export { register, authenticate, confirmed, forgotPassword, checkToken, sendNewPassword };
+
+export { register, authenticate, confirmed, forgotPassword, checkToken, sendNewPassword, profile };
