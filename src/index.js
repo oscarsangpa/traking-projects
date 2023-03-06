@@ -1,12 +1,12 @@
 import express from 'express';
-import { _connect } from './db/_connection.js';
+import dotenv from 'dotenv';
+import connectDB from './config/database.js';
 
-_connect();
 const app = express();
-const PORT = 3000;
+dotenv.config();
+connectDB();
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`listen on PORT ${PORT}`);
+	console.log(`Server running on port: ${PORT}`);
 });
-
-
