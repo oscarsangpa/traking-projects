@@ -16,10 +16,11 @@ const register = async (req, res) => {
         const user = new User(req.body);
         user.token = idGenerator();
         const newUser = await user.save();
-        res.json(newUser);
+        return res.status(200).json(newUser);
     } catch (error) {
         console.log(error);
     }
+    return res.json({ msg: "User register correctly" })
 };
 
 const authenticate = async (req, res) => {
@@ -66,6 +67,7 @@ const confirmed = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+
 }
 
 const forgotPassword = async (req, res) => {
