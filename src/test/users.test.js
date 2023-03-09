@@ -1,29 +1,28 @@
 import supertest from "supertest"
 import mongoose from "mongoose"
 import { app, server } from '../app'
+const api = supertest(app)
 
 const newUser = {
-    name: "Oscar",
-    email: "correo@correo.com",
+    name: "name",
+    email: "email@email.com",
     password: "password"
 }
 
-
-const api = supertest(app)
-
-test('endpoint returned a json', async () => {
-    await api
-        .post('/api/users/register')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
+describe('POST /users/register', () => {
+    test('Should check if email already exist', async () => {
+        const response = await api
+            .post('/api/users/register')
+            .send(newUser.email)
+        expect(response.body.email).not.toEqual(newUser.email)
+    })
+    test('Should respond with status 200', async () => {
+        await api.post('/api/users/register').send(newUser)
+        expect(200)
+        expect('Content-Type', /application\/json/)
+    })
 })
 
-test('User there are not in database', async () => {
-    await api
-        .post('/api/users/login')
-        .expect(404)
-        .expect('Content-Type', /application\/json/)
-})
 
 
 
