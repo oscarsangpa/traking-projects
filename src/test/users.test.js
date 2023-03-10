@@ -1,25 +1,24 @@
 import supertest from "supertest"
 import mongoose from "mongoose"
 import { app, server } from '../app'
+import { newUser } from "./utils/helpers"
+import User from "../models/User.model"
 const api = supertest(app)
 
-const newUser = {
-    name: "name",
-    email: "email@email.com",
-    password: "password"
-}
 
 describe('POST /users/register', () => {
-    test('Should check if email already exist', async () => {
-        const response = await api
+    test('Should check if user is already exist', async () => {
+        await api
             .post('/api/users/register')
-            .send(newUser.email)
-        expect(response.body.email).not.toEqual(newUser.email)
+            .send(newUser)
+        const findedUserbyId = User.findById({})
+
+        expect(findedUserbyId).not.toContain(newUser)
     })
     test('Should respond with status 200', async () => {
         await api.post('/api/users/register').send(newUser)
-        expect(200)
-        expect('Content-Type', /application\/json/)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
     })
 })
 
