@@ -8,7 +8,8 @@
     "start": "NODE_ENV=development node --watch src/app.js",
     "format": "prettier --write .",
     "lint": "eslint --fix . --ext js",
-    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --verbose --silent"
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --verbose --silent",
+    "test:logs": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --verbose"
   },
   "author": "oscarsangpa",
   "license": "ISC",

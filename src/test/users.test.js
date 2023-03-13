@@ -22,6 +22,17 @@ describe('POST /users/register', () => {
     })
 })
 
+describe('POST /users/login', () => {
+    test('Should change confirmed value to true', async () => {
+        await api
+            .post('/api/users/login')
+            .send(newUser)
+        const findedUser = User.findOneAndReplace({ confirmed: false }, { ...newUser, confirmed: true }, { returnNewDocument: true })
+        console.log(findedUser)
+        expect(findedUser._update.confirmed).toEqual(true)
+    })
+})
+
 
 
 
