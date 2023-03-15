@@ -69,7 +69,28 @@ const editProject = async (req, res) => {
     }
 }
 
-const deleteProject = async (req, res) => { }
+const deleteProject = async (req, res) => {
+    const { id } = req.params
+
+    const project = await Project.findById(id)
+
+    if (!project) {
+        const error = new Error('Project not found')
+        return res.status(404).json({ msg: error.message })
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Invalid action')
+        return res.status(401).json({ msg: error.message })
+    }
+
+    try {
+        await project.deleteOne()
+        res.json({ msg: 'Delete Project Correctly' })
+    } catch (error) {
+        console.error(error)
+    }
+}
 const addPartner = async (req, res) => { }
 const deletePartner = async (req, res) => { }
 
