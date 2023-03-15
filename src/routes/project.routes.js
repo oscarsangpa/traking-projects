@@ -2,7 +2,7 @@ import { router } from '../config/router.config.js'
 import {
     getProjects,
     getProject,
-    newProject,
+    addProject,
     editProject,
     deleteProject,
     addPartner,
@@ -13,7 +13,7 @@ import chekAuth from '../middleware/checkAuth.js'
 
 router.route('/')
     .get(chekAuth, getProjects)
-    .post(chekAuth, newProject)
+    .post(chekAuth, addProject)
 
 router.route('/:id')
     .get(chekAuth, getProject)

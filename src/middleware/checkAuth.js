@@ -11,7 +11,7 @@ const checkAuth = async (req, res, next) => {
             req.user = await User.findById(decoded.id).select('-password -confirmed -createdAt -updatedAt -token -__v')
             return next()
         } catch (error) {
-            res.status(400).json({ msg: "Error with authorization ocurred" })
+            return res.status(404).json({ msg: "Error with authorization ocurred" })
         }
     }
     if (!token) {
