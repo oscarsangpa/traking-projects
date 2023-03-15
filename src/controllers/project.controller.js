@@ -1,3 +1,4 @@
+import { json } from 'express'
 import Project from '../models/Project.model.js'
 
 
@@ -11,7 +12,22 @@ const getProjects = async (req, res) => {
 }
 
 
-const getProject = async (req, res) => { }
+const getProject = async (req, res) => {
+    const { id } = req.params
+
+    const project = await Project.findById(id)
+
+    if (!project) {
+        const error = new Error('Project not found')
+        return res.status(404).json({ msg: error.message })
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Invalid action')
+        return res.status(401).json({ msg: error.message })
+    }
+    res.json(project)
+}
 
 
 const addProject = async (req, res) => {
@@ -38,7 +54,7 @@ const getTask = async (req, res) => { }
 export {
     getProjects,
     getProject,
-    addProject as newProject,
+    addProject,
     editProject,
     deleteProject,
     addPartner,
