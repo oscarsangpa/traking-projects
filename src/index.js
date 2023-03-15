@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
-import userRouter from './routes/user.routes.js';
+import { userRouter } from './routes/user.routes.js';
+import { projectRouter } from './routes/project.routes.js'
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,7 @@ dotenv.config();
 connectDB();
 
 app.use('/api/users', userRouter);
+app.use('/api/projects', projectRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
