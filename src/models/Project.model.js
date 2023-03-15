@@ -30,15 +30,7 @@ const projectSchema = Schema({
             ref: "User"
         }
     ],
-    timestamps: true,
-    toJSON: {
-        transform: (document, returnedObjectId) => {
-            returnedObjectId.id = returnedObjectId._id
-            delete returnedObjectId.__v
-            return returnedObjectId
-        }
-    }
-});
+})
 
 const Project = model('Project', projectSchema)
 export default Project
