@@ -1,4 +1,3 @@
-import { json } from 'express'
 import Project from '../models/Project.model.js'
 
 
@@ -10,7 +9,6 @@ const getProjects = async (req, res) => {
 
     res.json(projects)
 }
-
 
 const getProject = async (req, res) => {
     const { id } = req.params
@@ -26,9 +24,9 @@ const getProject = async (req, res) => {
         const error = new Error('Invalid action')
         return res.status(401).json({ msg: error.message })
     }
+
     res.json(project)
 }
-
 
 const addProject = async (req, res) => {
     const project = new Project(req.body)
@@ -43,7 +41,34 @@ const addProject = async (req, res) => {
 }
 
 
-const editProject = async (req, res) => { }
+const editProject = async (req, res) => {
+    const { id } = req.params
+
+    const project = await Project.findById(id)
+
+    if (!project) {
+        const error = new Error('Project not found')
+        return res.status(404).json({ msg: error.message })
+    }
+
+    if (project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Invalid action')
+        return res.status(401).json({ msg: error.message })
+    }
+
+    project.name = req.body.name || project.name
+    project.description = req.body.description || project.description
+    project.deliveryDate = req.body.deliveryDate || project.deliveryDate
+    project.client = req.body.client || project.client
+
+    try {
+        const projectEdit = await project.save()
+        res.json(projectEdit)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 const deleteProject = async (req, res) => { }
 const addPartner = async (req, res) => { }
 const deletePartner = async (req, res) => { }
