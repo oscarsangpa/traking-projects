@@ -1,3 +1,4 @@
+import Project from '../models/Project.model.js'
 const getProjects = async (req, res) => { }
 const getProject = async (req, res) => { }
 const newProject = async (req, res) => { }
