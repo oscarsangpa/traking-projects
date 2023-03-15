@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const projectSchema = mongoose.Schema({
+const projectSchema = Schema({
     name: {
         type: String,
         trim: true,
@@ -21,16 +21,24 @@ const projectSchema = mongoose.Schema({
         required: true,
     },
     creator: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     },
     partners: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "User"
         }
-    ]
+    ],
+    timestamps: true,
+    toJSON: {
+        transform: (document, returnedObjectId) => {
+            returnedObjectId.id = returnedObjectId._id
+            delete returnedObjectId.__v
+            return returnedObjectId
+        }
+    }
 });
 
-const Project = mongoose.model('Project', projectSchema)
+const Project = model('Project', projectSchema)
 export default Project

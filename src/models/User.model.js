@@ -1,36 +1,43 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const SALT_ROUNDS = 10;
 
-const userSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-      unique: true,
-    },
-    token: {
-      type: String,
-    },
-    confirmed: {
-      type: Boolean,
-      default: false,
-    },
+const userSchema = Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
   },
+  password: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  token: {
+    type: String,
+  },
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
+},
   {
     timestamps: true,
+    toJSON: {
+      transform: (document, returnedObjectId) => {
+        returnedObjectId.id = returnedObjectId._id
+        delete returnedObjectId.password
+        delete returnedObjectId.__v
+        return returnedObjectId
+      }
+    }
   }
 );
 
@@ -48,5 +55,5 @@ userSchema.methods.checkPassword = async function (formPassword) {
 
 }
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 export default User;
