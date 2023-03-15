@@ -14,4 +14,6 @@ router.route("/forgot-password/:token")
 
 router.get('/profile', checkAuth, profile)
 
-export default router;
+export {
+    router as userRouter
+}
