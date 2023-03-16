@@ -11,7 +11,7 @@ const projectSchema = Schema({
         trim: true,
         required: true,
     },
-    deliveryDate: {
+    deadLine: {
         type: Date,
         default: Date.now(),
     },

@@ -58,7 +58,7 @@ const editProject = async (req, res) => {
 
     project.name = req.body.name || project.name
     project.description = req.body.description || project.description
-    project.deliveryDate = req.body.deliveryDate || project.deliveryDate
+    project.deadLine = req.body.deadLine || project.deadLine
     project.client = req.body.client || project.client
 
     try {
