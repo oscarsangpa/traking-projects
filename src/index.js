@@ -12,7 +12,7 @@ connectDB();
 
 app.use('/api/users', userRouter);
 app.use('/api/projects', projectRouter)
-app.use('/api/task', taskRouter)
+app.use('/api/tasks', taskRouter)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

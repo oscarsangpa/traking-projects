@@ -6,7 +6,7 @@ import {
     editTask,
     deleteTask,
     changeStateTask
-} from "../controllers/task.controller";
+} from "../controllers/task.controller.js";
 
 router.post('/', checkAuth, addTask)
 
