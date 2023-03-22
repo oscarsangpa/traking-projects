@@ -1,4 +1,5 @@
 import Project from '../models/Project.model.js'
+import Task from '../models/Task.model.js'
 
 
 const getProjects = async (req, res) => {
@@ -25,7 +26,12 @@ const getProject = async (req, res) => {
         return res.status(401).json({ msg: error.message })
     }
 
-    res.json(project)
+    const tasks = await Task.find().where('project').equals(project._id)
+
+    res.json({
+        project,
+        tasks
+    })
 }
 
 const addProject = async (req, res) => {
@@ -95,7 +101,6 @@ const addPartner = async (req, res) => { }
 const deletePartner = async (req, res) => { }
 
 
-const getTask = async (req, res) => { }
 
 export {
     getProjects,
@@ -105,5 +110,4 @@ export {
     deleteProject,
     addPartner,
     deletePartner,
-    getTask
 }
