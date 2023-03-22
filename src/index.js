@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import { userRouter } from './routes/user.routes.js';
 import { projectRouter } from './routes/project.routes.js'
-import { taskRouter } from './routes/task.routes.js';
+import { taskRouter } from './routes/task.routes.js'
 
 const app = express();
 app.use(express.json());
