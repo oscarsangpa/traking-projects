@@ -1,4 +1,4 @@
-import { router } from '../config/router.config.js'
+import express from 'express'
 import {
     getProjects,
     getProject,
@@ -10,6 +10,8 @@ import {
     getTask
 } from '../controllers/project.controller.js'
 import chekAuth from '../middleware/checkAuth.js'
+
+const router = express.Router()
 
 router.route('/')
     .get(chekAuth, getProjects)
