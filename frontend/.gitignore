@@ -25,7 +25,7 @@ dist-ssr
 *.sw?
 
 .eslintignore
-.eslintrc
+.eslintrc.cjs
 .prettierrc
 .prettierignore
 

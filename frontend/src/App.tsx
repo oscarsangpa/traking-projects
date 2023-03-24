@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AuthLayout from './layouts/AuthLayout';
-import ConfirmAccount from './pages/ConfirmAccount';
-import ForgotPassword from './pages/ForgotPassword';
-import Login from './pages/Login';
-import NewPassword from './pages/NewPassword';
-import Register from './pages/Register';
+import AuthLayout from '@/layouts/AuthLayout';
+import ConfirmAccount from '@/pages/ConfirmAccount';
+import ForgotPassword from '@/pages/ForgotPassword';
+import Login from '@/pages/Login';
+import NewPassword from '@/pages/NewPassword';
+import Register from '@/pages/Register';
 
 function App() {
   return (
