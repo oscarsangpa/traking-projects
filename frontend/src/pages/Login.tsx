@@ -43,7 +43,7 @@ function Login() {
         <p className="text-center text-sm">
           Don´t have an account?{' '}
           <Link className="block hover:text-amber-300" to="/register">
-            Sing up
+            Sign up
           </Link>
         </p>
         <Link

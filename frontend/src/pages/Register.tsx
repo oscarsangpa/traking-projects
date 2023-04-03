@@ -65,7 +65,7 @@ function Register() {
         <p className="text-center text-sm">
           Do you have an account?{' '}
           <Link className="block hover:text-amber-300" to="/">
-            Sing up
+            Sign In
           </Link>
         </p>
         <Link
